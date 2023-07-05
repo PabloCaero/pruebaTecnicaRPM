@@ -24,23 +24,26 @@ class UsuariosController extends Controller
    
     public function store(Request $request)
     {
-         //Sirve para guardar datos en la BD
-         $usuarios = new  Usuarios();
+    $email = $request->post('email');
 
-         //PARA TOMAR DATOS DEL FORMULARIO
+    //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
+    $verificacion = Usuarios::where('email', $email)->first();
 
-         $usuarios->nombre = $request->post('nombre');
-         $usuarios->apellido = $request->post('apellido');
-         $usuarios->email = $request->post('email');
-         $usuarios->password = $request->post('password');
-         $usuarios->estado = $request->post('estado');
-         $usuarios->foto = $request->post('foto');
+    if ($verificacion !== null) {
+        return redirect()->route("usuarios.index")->with("success", "No se pudo agregar. El correo electrónico ya está registrado");
+    }
 
-         //METODO PARA GUARDAR
-         $usuarios->save();
- 
-         //PARA RETORNAR
-         return redirect()->route("usuarios.index")->with("success", "Agregado con éxito!");
+    $usuarios = new Usuarios();
+    $usuarios->nombre = $request->post('nombre');
+    $usuarios->apellido = $request->post('apellido');
+    $usuarios->email = $email;
+    $usuarios->password = $request->post('password');
+    $usuarios->estado = $request->post('estado');
+    $usuarios->foto = $request->post('foto');
+
+    $usuarios->save();
+
+    return redirect()->route("usuarios.index")->with("success", "Agregado con éxito!");
     }
 
    
@@ -72,6 +75,7 @@ class UsuariosController extends Controller
         $usuarios->password = $request->post('password');
         $usuarios->estado = $request->post('estado');
         $usuarios->foto = $request->post('foto');
+        
 
          //METODO PARA GUARDAR
          $usuarios->save();
