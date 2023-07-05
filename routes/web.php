@@ -3,13 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\AuditoriaController;
-
 use App\Http\Controllers\LoginController;
 
 
-Route::get('/', function () {
-    return view('login');
-});
+
+/*************RUTAS PARA LOGIN**************/
+
+Route::view('/login', "login")->name('login');
+Route::view('/registro', "agregar")->name('registro'); //RECICLO AGREGAR
+Route::view('/privada', "secret")->name('privada');
+
+Route::post('/validar-registro', [LoginController::class, 'register'])->name('validar-registro');
+Route::post('/inicia-sesion', [LoginController::class, 'login'])->name('inicia-sesion');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+/*******************************************/
 
 //AUDITORIA
 Route::get('/auditoria', [AuditoriaController::class, 'index']) -> name('auditoria.index');
