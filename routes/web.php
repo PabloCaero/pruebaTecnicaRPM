@@ -1,37 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsuariosController;
 
-/*************RUTAS DE LAS VISTAS*************/
 
 Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/actualizar', function () {
-    return view('actualizar');
-});
+//ASOCIAMOS EL CONTROL DE LA CLASE INDEX
+Route::get('/inicio', [UsuariosController::class, 'index']) -> name('usuarios.index');
 
-Route::get('/agregar', function () {
-    return view('agregar');
-});
+//RUTA DE FORMULARIO CREATE
+Route::get('/create', [UsuariosController::class, 'create']) -> name('usuarios.create');
 
-Route::get('/auditoria', function () {
-    return view('auditoria');
-});
+//RUTA DE INSERCIÓN EN LA BASE
+Route::post('/store', [UsuariosController::class, 'store']) -> name('usuarios.store');
 
-Route::get('/eliminar', function () {
-    return view('eliminar');
-});
+//RUTA DE FORMULARIO EDIT - DEBEMOS RECIBIR PARAMETROS
+Route::get('/edit/{id}', [UsuariosController::class, 'edit']) -> name('usuarios.edit');
 
-Route::get('/inicio', function () {
-    return view('inicio');
-});
+//RUTA DE FORMULARIO ELIMINAR
+Route::delete('/destroy/{id}', [UsuariosController::class, 'destroy']) -> name('usuarios.destroy');
 
-/**********************************************/
+//RUTA DE MODIFICACIÓN EN LA BASE
+Route::put('/update/{id}', [UsuariosController::class, 'update']) -> name('usuarios.update');
 
-/*************RUTAS DE LOS CONTROLADORES*************/
-
-
+//RUTA PARA TRAER UN SOLO REGISTRO
+Route::get('/show/{id}', [UsuariosController::class, 'show']) -> name('usuarios.show');
 
 /****************************************************/
