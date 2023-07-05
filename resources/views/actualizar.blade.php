@@ -8,10 +8,7 @@
     <h5 class="card-header">Actualizar Usuario</h5>
     <div class="card-body">
 
-      <!--RECIBO A LA PERSONA TRAIDA DESDE EL CONTROLADOR-->
-      @php
-        //print_r($personas); //ESTE ES NUESTRO OBJETO
-      @endphp
+      
      
       <p class="card-text">
             <form action="{{route('usuarios.update', $usuarios->id)}}" method= "POST">
