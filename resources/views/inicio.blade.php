@@ -32,6 +32,12 @@
             Agregar Nuevo Usuario
             
             </a>
+
+            <a href="{{route('auditoria.index')}}" class="btn btn-primary"> 
+                <span class="fas fa-user-plus"> </span><!--ICONO-->
+                Auditorias
+                
+                </a>
     </p>
 
   

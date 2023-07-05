@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\AuditoriaController;
 
 
 Route::get('/', function () {
     return view('login');
 });
+
+//AUDITORIA
+Route::get('/auditoria', [AuditoriaController::class, 'index']) -> name('auditoria.index');
 
 //ASOCIAMOS EL CONTROL DE LA CLASE INDEX
 Route::get('/inicio', [UsuariosController::class, 'index']) -> name('usuarios.index');

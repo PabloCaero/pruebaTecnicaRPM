@@ -16,6 +16,13 @@ class UsuariosController extends Controller
         return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
     }
 
+    public function auditoriasRedirect()
+    {
+      
+
+        return view('auditoria'); //ENTRE COMILLAS SIMPLES
+    }
+
     public function create()
     {
          return view('agregar');
