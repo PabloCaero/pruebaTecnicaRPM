@@ -66,22 +66,38 @@ class UsuariosController extends Controller
     public function update(Request $request, $id)
     {
         $usuarios = new  Usuarios();
+        
+        //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
+        $usuarios = Usuarios::find($id);
 
-        //PARA TOMAR DATOS DEL FORMULARIO
+         $email = $request->post('email');
+         $verificacion = Usuarios::where('email', $email)->first();
+         $verificacionUsuario = Usuarios::find($id);
+
+          //PARA TOMAR DATOS DEL FORMULARIO
 
         $usuarios->nombre = $request->post('nombre');
         $usuarios->apellido = $request->post('apellido');
         $usuarios->email = $request->post('email');
         $usuarios->password = $request->post('password');
         $usuarios->estado = $request->post('estado');
-        $usuarios->foto = $request->post('foto');
-        
+        $usuarios->foto = $request->post('foto');        
 
          //METODO PARA GUARDAR
-         $usuarios->save();
+         if ($verificacion == $verificacionUsuario) {
+            $usuarios->update();
+            return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito, no se modificó el email.");
+        }
 
-         //PARA RETORNAR
-         return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito!");
+         if ($verificacion !== null) {
+            //PARA RETORNAR
+         return redirect()->route("usuarios.index")->with("success", "No se pudo modificar, el mail ". $email . " esta ligado a otro usuario");
+         }    
+
+         $usuarios->update();
+         return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito.");
+
+         
     }
 
     
