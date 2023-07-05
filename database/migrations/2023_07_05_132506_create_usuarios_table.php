@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('estado');
             $table->string('foto')->nullable();
+
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
+            
             $table->timestamps();
             $table->softDeletes();
         });

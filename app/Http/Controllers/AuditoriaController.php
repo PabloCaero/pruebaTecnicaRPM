@@ -16,11 +16,6 @@ class AuditoriaController extends Controller
     }
 
     
-    public function create()
-    {
-        //
-    }
-
    
     public function store(Request $request)
     {
@@ -28,26 +23,4 @@ class AuditoriaController extends Controller
     }
 
    
-    public function show(Auditoria $auditoria)
-    {
-        //
-    }
-
-   
-    public function edit(Auditoria $auditoria)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, Auditoria $auditoria)
-    {
-        //
-    }
-
-   
-    public function destroy(Auditoria $auditoria)
-    {
-        //
-    }
 }
