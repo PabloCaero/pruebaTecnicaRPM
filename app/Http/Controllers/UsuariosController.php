@@ -35,53 +35,53 @@ class UsuariosController extends Controller
    
     public function store(Request $request)
     {
-    $email = $request->post('email');
-
-    //PARA AGREGAR A LA TABLA USUARIOS
-    $verificacion = Usuarios::where('email', $email)->first();
-
-    if ($verificacion !== null) {
-        return redirect()->route("usuarios.index")->with("success", "No se pudo agregar. El correo electrónico ya está registrado");
+        $email = $request->post('email');
+    
+        // PARA VALIDAR Y GUARDAR RUTA DE FOTO
+        $ruta = ''; 
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+            $ruta = $foto->store('fotos', 'public'); 
+        }
+    
+        //PARA AGREGAR A LA TABLA USUARIOS
+        $verificacion = Usuarios::where('email', $email)->first();
+    
+        if ($verificacion !== null) {
+            return redirect()->route("usuarios.index")->with("success", "No se pudo agregar. El correo electrónico ya está registrado");
+        }
+    
+        $usuarios = new Usuarios();
+        $usuarios->nombre = $request->post('nombre');
+        $usuarios->apellido = $request->post('apellido');
+        $usuarios->email = $email;
+        $usuarios->password = bcrypt($request->post('password')); //LO GUARDA EN FORMA CIFRADA
+        $usuarios->estado = $request->post('estado');
+        $usuarios->foto = $ruta ? 'fotos/' . $ruta : null;
+    
+        $usuarios->save();
+        
+        //PARA AGREGAR A LA TABLA USERS
+        $user = new User();
+        $user->name = $request->input('nombre');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+    
+        $user->save();
+    
+        //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
+    
+        /****LOGICA PARA AUDITORIAS****/
+        $auditoria = new Auditoria();
+        $auditoria->fecha_hora = now();
+        $auditoria->usuario_id = Auth::id();
+        $auditoria->accion = "Agregó a un usuario";
+        $usuarioResponsable = Usuarios::find(Auth::id());
+        $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
+        $auditoria->save();
+    
+        return redirect()->route("usuarios.index")->with("success", "Agregado con éxito!");
     }
-
-    $usuarios = new Usuarios();
-    $usuarios->nombre = $request->post('nombre');
-    $usuarios->apellido = $request->post('apellido');
-    $usuarios->email = $email;
-    $usuarios->password = bcrypt($request->post('password')); //LO GUARDA EN FORMA CIFRADA
-    $usuarios->estado = $request->post('estado');
-    $usuarios->foto = $request->post('foto');
-
-    
-    $usuarios->save();
-    
-    //PARA AGREGAR A LA TABLA USERS
-    $user = new User();
-    $user->name = $request->input('nombre');
-    $user->email = $request->input('email');
-    $user->password = bcrypt($request->input('password'));
-
-    $user->save();
-
-    //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
-
-
-    /****LOGICA PARA AUDITORIAS****/
-    $auditoria = new Auditoria();
-    $auditoria->fecha_hora = now();
-    $auditoria->usuario_id = Auth::id();
-    $auditoria->accion = "Agregó a un usuario";
-    $usuarioResponsable = Usuarios::find(Auth::id());
-    $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
-    $auditoria->save();
-
-
-
-    
-
-    return redirect()->route("usuarios.index")->with("success", "Agregado con éxito!");
-    }
-
    
     public function show($id)
     {
@@ -101,6 +101,13 @@ class UsuariosController extends Controller
    
     public function update(Request $request, $id)
     {
+          // PARA VALIDAR Y GUARDAR RUTA DE FOTO
+          $ruta = ''; 
+          if ($request->hasFile('foto')) {
+              $foto = $request->file('foto');
+              $ruta = $foto->store('fotos', 'public');
+          }
+        
         $usuarios = new  Usuarios();
         
         //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
@@ -118,7 +125,7 @@ class UsuariosController extends Controller
         $usuarios->email = $request->post('email');
         $usuarios->password = bcrypt($request->post('password'));
         $usuarios->estado = $request->post('estado');
-        $usuarios->foto = $request->post('foto');    
+        $usuarios->foto = $ruta ? 'fotos/' . $ruta : null;  
         
         //PARA MODIFICAR A LA TABLA USERS
        $user = new User();

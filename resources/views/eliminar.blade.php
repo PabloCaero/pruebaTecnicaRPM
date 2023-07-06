@@ -38,7 +38,7 @@
                         <td>{{ $usuarios->email }}</td>
                         <td hidden>{{ $usuarios->password }}</td>
                         <td>{{ $usuarios->estado }}</td>
-                        <td>{{ $usuarios->foto }}</td>
+                        <td><img src="{{ asset('storage/' . $usuarios->foto) }}" alt="Foto"></td>
                     </tr>
 
                 </tbody>

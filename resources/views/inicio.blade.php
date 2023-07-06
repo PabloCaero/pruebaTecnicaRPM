@@ -77,7 +77,7 @@
                                 <td>{{ $item->email }}</td>
                                 <td hidden>{{ $item->password }}</td>
                                 <td>{{ $item->estado }}</td>
-                                <td>{{ $item->foto }}</td>
+                                <td><img src="{{ asset('storage/fotos' . $item->foto) }}" alt="Foto"></td>
                                 <form action="{{ route('usuarios.edit', $item->id) }}" method="GET">
                                     <!--ENVIA EL ID-->
                                     <td><button class="btn btn-warning">

@@ -30,9 +30,12 @@
                   <option value="Inactivo">Inactivo</option>
                 </select>
 
-                <label for="">Foto</label>
-                <input type="text" name="foto" class="form-control">
+            
+                  <label for="">Foto</label>
+                  <input type="file" name="foto" class="form-control">
+                
 
+                <br>
                 <br>
 
                 <!--PARA REGRESAR-->

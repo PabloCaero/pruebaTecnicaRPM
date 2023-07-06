@@ -33,9 +33,12 @@
                 <option value="Inactivo">Inactivo</option>
               </select>
 
-              <label for="">Foto</label>
-              <input type="text" name="foto" class="form-control" value="{{$usuarios->foto}}">
+            
+                  <label for="">Foto</label>
+                  <input type="file" name="foto" class="form-control" value="{{$usuarios->foto}}">
+                  
 
+                <br>
                 <br>
 
                 <!--PARA REGRESAR-->
