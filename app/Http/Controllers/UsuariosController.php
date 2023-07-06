@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class UsuariosController extends Controller
     {
     $email = $request->post('email');
 
-    //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
+    //PARA AGREGAR A LA TABLA USUARIOS
     $verificacion = Usuarios::where('email', $email)->first();
 
     if ($verificacion !== null) {
@@ -46,13 +47,22 @@ class UsuariosController extends Controller
     $usuarios->nombre = $request->post('nombre');
     $usuarios->apellido = $request->post('apellido');
     $usuarios->email = $email;
-    $usuarios->password = Hash::make($request->post('password')); //LO GUARDA EN FORMA CIFRADA
+    $usuarios->password = bcrypt($request->post('password')); //LO GUARDA EN FORMA CIFRADA
     $usuarios->estado = $request->post('estado');
     $usuarios->foto = $request->post('foto');
 
-    //VALIDA EL USUARIO?
     
     $usuarios->save();
+    
+    //PARA AGREGAR A LA TABLA USERS
+    $user = new User();
+    $user->name = $request->input('nombre');
+    $user->email = $request->input('email');
+    $user->password = bcrypt($request->input('password'));
+
+    $user->save();
+
+    //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
 
     
 
@@ -82,6 +92,7 @@ class UsuariosController extends Controller
         
         //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
         $usuarios = Usuarios::find($id);
+        
 
          $email = $request->post('email');
          $verificacion = Usuarios::where('email', $email)->first();
@@ -92,13 +103,25 @@ class UsuariosController extends Controller
         $usuarios->nombre = $request->post('nombre');
         $usuarios->apellido = $request->post('apellido');
         $usuarios->email = $request->post('email');
-        $usuarios->password = $request->post('password');
+        $usuarios->password = bcrypt($request->post('password'));
         $usuarios->estado = $request->post('estado');
-        $usuarios->foto = $request->post('foto');        
+        $usuarios->foto = $request->post('foto');    
+        
+        //PARA MODIFICAR A LA TABLA USERS
+       $user = new User();
+       $user = User::find($id);
+       $user->name = $request->post('nombre');
+       $user->email = $request->post('email');
+       $user->password = bcrypt($request->post('password'));
+
+       
+
+       //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
 
          //METODO PARA GUARDAR
          if ($verificacion == $verificacionUsuario) {
             $usuarios->update();
+            $user->update();
             return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito, no se modificó el email.");
         }
 
@@ -108,6 +131,7 @@ class UsuariosController extends Controller
          }    
 
          $usuarios->update();
+         $user->update();
          return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito.");
 
          
@@ -117,9 +141,11 @@ class UsuariosController extends Controller
     public function destroy(Request $request, $id)
     {
         $usuarios = Usuarios::find($id);
+        $user = User::find($id);
 
-        //METODO PARA GUARDAR
+        //METODO PARA ELIMINAR
         $usuarios->delete();
+        $user->delete();
 
         //PARA RETORNAR
         return redirect()->route("usuarios.index")->with("success", "Eliminado con éxito!");   
