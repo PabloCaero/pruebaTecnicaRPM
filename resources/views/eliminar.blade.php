@@ -35,7 +35,7 @@
                             <td>{{ $usuarios->email }}</td>
                             <td hidden>{{ $usuarios->password }}</td>
                             <td>{{ $usuarios->estado }}</td>
-                            <td><img src="{{ asset('storage/fotos/' . $usuarios->foto) }}" alt="Foto" class="rounded-circle" style="width: 50px; height: 50px;"></td>
+                            <td><img src="{{ asset($usuarios->foto) }}" alt="Foto" class="rounded-circle" style="width: 50px; height: 50px;"></td>
                         </tr>
                     </tbody>
                 </table>

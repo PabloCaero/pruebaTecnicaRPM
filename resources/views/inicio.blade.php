@@ -77,7 +77,7 @@
                                     <td>{{ $item->estado }}</td>
                                     <td>
                                         @if ($item->foto)
-                                            <img src="{{ asset('storage/fotos/' . $item->foto) }}" alt="Foto" class="img-thumbnail" width="100">
+                                            <img src="{{ asset($item->foto) }}" alt="Foto" class="img-thumbnail" width="100">
                                         @endif
                                     </td>
                                     <form action="{{ route('usuarios.edit', $item->id) }}" method="GET">
