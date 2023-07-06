@@ -34,7 +34,7 @@ ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
 
             
                   <label for="">Foto</label>
-                  <input type="file" name="foto" class="form-control">
+                  <input type="file" name="foto" class="form-control" accept="image/*">
                 
 
                 <br>

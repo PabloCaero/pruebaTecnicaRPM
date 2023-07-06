@@ -59,7 +59,7 @@ class UsuariosController extends Controller
         $usuarios->email = $email;
         $usuarios->password = bcrypt($request->post('password')); //LO GUARDA EN FORMA CIFRADA
         $usuarios->estado = $request->post('estado');
-        $usuarios->foto = $ruta ? Storage::url($ruta) : null;
+        $usuarios->foto = $ruta ? Storage::url($ruta) : 'sinfoto.png';
     
         $usuarios->save();
     
@@ -131,9 +131,11 @@ class UsuariosController extends Controller
     $usuarios->email = $request->post('email');
     $usuarios->password = bcrypt($request->post('password'));
     $usuarios->estado = $request->post('estado');
-    $usuarios->foto = $ruta ? Storage::url($ruta) : null;
+   
+    $usuarios->foto = $ruta ? Storage::url($ruta) : $usuarios->foto;
+    
 
-    $usuarios->save();
+    $usuarios->update();
 
     //PARA MODIFICAR A LA TABLA USERS
     $user = User::find($id);

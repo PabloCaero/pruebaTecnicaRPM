@@ -61,30 +61,30 @@ ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
 
             <p class="card-text">
                 <div class="table table-responsive">
-                    <table class="table table-sm table-bordered">
-                        <thead>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <th>Foto</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Email</th>
                             <th hidden>Password</th>
                             <th>Estado</th>
-                            <th>Foto</th>
                             <th>Editar</th>
                             <th>Eliminar</th>
                         </thead>
                         <tbody>
                             @foreach ($datos as $item)
                                 <tr>
-                                    <td>{{ $item->nombre }}</td>
-                                    <td>{{ $item->apellido }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td hidden>{{ $item->password }}</td>
-                                    <td>{{ $item->estado }}</td>
                                     <td>
                                         @if ($item->foto)
                                             <img src="{{ asset($item->foto) }}" alt="Foto" class="img-thumbnail" width="100">
                                         @endif
                                     </td>
+                                    <td>{{ $item->nombre }}</td>
+                                    <td>{{ $item->apellido }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td hidden>{{ $item->password }}</td>
+                                    <td>{{ $item->estado }}</td>
                                     <form action="{{ route('usuarios.edit', $item->id) }}" method="GET">
                                         <!--ENVIA EL ID-->
                                         <td>

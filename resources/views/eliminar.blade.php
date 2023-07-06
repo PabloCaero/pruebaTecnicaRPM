@@ -19,8 +19,8 @@ ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
                     </svg>
                 </div>
 
-                <table class="table">
-                    <thead>
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
                         <tr>
                             <th>Nombre</th>
                             <th>Apellido</th>

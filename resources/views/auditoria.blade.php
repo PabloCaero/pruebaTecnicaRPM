@@ -25,8 +25,8 @@ ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
   
     <p class="card-text">
         <div class="table table-responsive">
-        <table class="table table-sm table-bordered">
-            <thead>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
                 <th>Fecha y Hora</th>
                 <th>ID de Usuario</th>
                 <th>Responsable</th>
