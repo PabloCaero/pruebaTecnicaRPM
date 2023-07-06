@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuarios;
+
+use App\Models\User;
 use App\Http\Controllers;
 use Illuminate\Http\Request;
 
@@ -13,69 +14,41 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     
-   /* public function login(Request $request){
-        
-        $credentials = [
-        "email" => $request->email,
-        "password" => $request->password,
-        //"active" => true;
-        ];
-
-        $email = $request->post('email');
-
-        //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
-        $verificacion = Usuarios::where('email', $email)->first();
-
-        Auth::login($verificacion);
-
-        $remember = ($request->hast('remember') ? true : false);   
-
-        if(Auth::attemp($credentials, $remember)){
-            $request->session()->regenerate();  
-            
-            return redirect()->intended(route('privada'));
-        }
-        else{
-            return redirect(route('login'));
-        }   
-    }*/
+   
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+       //VALIDACION DE CONTRASEÑA
+       
 
-        $verificacion = Usuarios::where('email', $credentials['email'])->first();
+        $credentials = [
+        "email" => $request->email,
+        "password" => $request->password,
+        //ACA PODRÍA INDICARSE QUE ESTE ACTIVO
+        ];
 
-        Auth::login($verificacion);
-        $request->session()->regenerate();
+       $remember = ($request->has('remember') ? true : false);
 
-      return redirect()->intended(route('privada'));
+       if(Auth::attempt($credentials,$remember)){
+           
 
-        if ($verificacion) {
-          if (Hash::check($credentials['password'], $verificacion->password)) {
-              if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('privada');
 
-                
-              } else {
-                return redirect(route('login'))->with('error', 'Credenciales inválidas');
-            }
-             } else {
-            return redirect(route('login'))->with('error', 'Contraseña incorrecta');
-              }
-        } else {
-        return redirect(route('login'))->with('error', 'Usuario no encontrado');
+       }
+       else{
+        return redirect(route('login'));
+       }
     }
-}
 
     public function logout(Request $request){
-        
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-
         return redirect(route('login'));
+      
     }
    
 }

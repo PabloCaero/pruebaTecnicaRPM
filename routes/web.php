@@ -11,7 +11,7 @@ use App\Http\Controllers\LoginController;
 
 Route::view('/login', "login")->name('login');
 Route::view('/registro', "agregar")->name('registro'); //RECICLO AGREGAR
-Route::view('/privada', "secret")->name('privada'); 
+Route::view('/privada', "secret")->middleware('auth')->name('privada'); 
 
 
 Route::post('/validar-registro', [LoginController::class, 'register'])->name('validar-registro');

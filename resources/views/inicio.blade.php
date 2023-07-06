@@ -14,9 +14,7 @@
 
             <!--PARA VALIDAR SESIÓN->
 
-                @auth
-                {{Auth::usuarios()->nombre;}}
-                @endauth
+                
 
             <!--PARA QUE MUESTRE UN MENSAJE-->
 
