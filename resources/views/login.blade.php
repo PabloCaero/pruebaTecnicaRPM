@@ -27,7 +27,7 @@
                 </div>
 
                 <div>
-                    <p>Registrarse <a href="{{ route('registro') }}"</p>
+                    <p> <a href="{{ route('registro') }}">Registrarses</a></p>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Acceder</button>

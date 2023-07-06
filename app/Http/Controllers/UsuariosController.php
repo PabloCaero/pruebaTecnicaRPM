@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends Controller
 {
@@ -44,9 +46,12 @@ class UsuariosController extends Controller
     $usuarios->nombre = $request->post('nombre');
     $usuarios->apellido = $request->post('apellido');
     $usuarios->email = $email;
-    $usuarios->password = $request->post('password');
+    $usuarios->password = Hash::make($request->post('password')); //LO GUARDA EN FORMA CIFRADA
     $usuarios->estado = $request->post('estado');
     $usuarios->foto = $request->post('foto');
+
+    //VALIDA EL USUARIO?
+    Auth::login($usuarios);
 
     $usuarios->save();
 

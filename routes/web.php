@@ -11,11 +11,12 @@ use App\Http\Controllers\LoginController;
 
 Route::view('/login', "login")->name('login');
 Route::view('/registro', "agregar")->name('registro'); //RECICLO AGREGAR
+Route::view('/privada', "inicio")->middleware('auth')->name('inicio'); 
 
 
 Route::post('/validar-registro', [LoginController::class, 'register'])->name('validar-registro');
 Route::post('/inicia-sesion', [UsuariosController::class, 'index'])->name('inicia-sesion');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 /*******************************************/
