@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    
+    public function index()
+    {
+        
+      
+
+        return view('login'); //ENTRE COMILLAS SIMPLES
+    }
    
 
     public function login(Request $request)
