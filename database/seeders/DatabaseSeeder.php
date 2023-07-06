@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
          $usuario->email = 'administrador@rustoleum.com.ar';
          $usuario->password = bcrypt('Z!eVr6ang$_fgGP?');
          $usuario->estado = 'Activo';
-         $usuario->foto = 'storage/fotos/logo.png';
+         $usuario->foto = 'logo.png';
          $usuario->save();
 
          /****LOGICA PARA AUDITORIAS****/
