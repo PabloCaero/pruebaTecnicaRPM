@@ -51,9 +51,10 @@ class UsuariosController extends Controller
     $usuarios->foto = $request->post('foto');
 
     //VALIDA EL USUARIO?
-    Auth::login($usuarios);
-
+    
     $usuarios->save();
+
+    
 
     return redirect()->route("usuarios.index")->with("success", "Agregado con éxito!");
     }

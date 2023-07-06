@@ -15,7 +15,7 @@
             <!--PARA VALIDAR SESIÓN->
 
                 @auth
-                {{Auth::user()->name}}
+                {{Auth::usuarios()->nombre;}}
                 @endauth
 
             <!--PARA QUE MUESTRE UN MENSAJE-->
