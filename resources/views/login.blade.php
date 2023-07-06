@@ -4,6 +4,7 @@
 
 @section('contenido')
 
+        
 
     <div class="card">
         <h5 class="card-header">LOGIN</h5>
@@ -26,9 +27,7 @@
                     <label class="form-check-label" for="rememberCheck">Mantener sesión iniciada</label>
                 </div>
 
-                <div>
-                    <p> <a href="{{ route('registro') }}">Registrarses</a></p>
-                </div>
+               
 
                 <button type="submit" class="btn btn-primary">Acceder</button>
 

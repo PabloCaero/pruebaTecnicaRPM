@@ -33,7 +33,7 @@ class LoginController extends Controller
            
 
             $request->session()->regenerate();
-            return redirect()->intended('privada');
+            return redirect()->intended('inicio');
 
        }
        else{

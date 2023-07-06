@@ -14,7 +14,11 @@
 
   <body>
     <div class="container">
-        <br><br>
+      <br><br>
+      @if(Auth::check())
+      Bienvenido, {{ Auth::user()->name }}
+     @endif
+
         @yield('contenido')  <!-- CONTENIDO-->
 
     </div>
