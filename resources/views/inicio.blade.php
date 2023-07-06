@@ -62,7 +62,7 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
-                        <th>Password</td>
+                        <th hidden>Password</td>
                         <th>Estado</td>
                         <th>Foto</td>
                         <th>Editar</th>
@@ -75,7 +75,7 @@
                                 <td>{{ $item->nombre }}</td>
                                 <td>{{ $item->apellido }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->password }}</td>
+                                <td hidden>{{ $item->password }}</td>
                                 <td>{{ $item->estado }}</td>
                                 <td>{{ $item->foto }}</td>
                                 <form action="{{ route('usuarios.edit', $item->id) }}" method="GET">
@@ -98,7 +98,7 @@
             <hr>
             <!--PAGINACIÓN-->
             <div class="row">
-                <div class="col-sm-12" text"">
+                <div class="col-sm-12" >
                     {{ $datos->links() }}
                 </div>
             </div>

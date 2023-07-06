@@ -10,7 +10,7 @@ class AuditoriaController extends Controller
     
     public function index()
     {
-        $datos =  Auditoria::orderBy('id', 'desc')->paginate(3);
+        $datos =  Auditoria::orderBy('id', 'desc')->paginate(10);
 
         return view('auditoria', compact('datos')); //ENTRE COMILLAS SIMPLES
     }

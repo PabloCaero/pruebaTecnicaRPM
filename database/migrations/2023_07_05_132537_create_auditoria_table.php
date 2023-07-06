@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('auditoria', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('fecha_hora');
-            $table->integer('usuario_id')->unsigned();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->integer('usuario_id');
+            $table->string('nombre_usuario');
             $table->string('accion');
             $table->timestamps();
             $table->softDeletes();

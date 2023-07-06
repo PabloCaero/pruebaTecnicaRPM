@@ -28,6 +28,7 @@
             <thead>
                 <th>Fecha y Hora</th>
                 <th>ID de Usuario</th>
+                <th>Responsable</th>
                 <th>Acción</th>
                
             </thead>
@@ -38,6 +39,7 @@
                 <tr>
                     <td>{{$item -> fecha_hora}}</td>    
                     <td>{{$item -> usuario_id}}</td> 
+                    <td>{{$item -> nombre_usuario}}</td> 
                     <td>{{$item -> accion}}</td>    
                   
                                
@@ -50,11 +52,11 @@
         </table>
         <hr>
         <!--PAGINACIÓN-->
-        <div class="row">
-            <div class="col-sm-12" text"">
-            {{$datos->links()}}
+         <div class="row">
+                <div class="col-sm-12">
+                    {{ $datos->links() }}
+                </div>
             </div>
-        </div>
 
      
 

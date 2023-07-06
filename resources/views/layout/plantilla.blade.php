@@ -16,8 +16,12 @@
     <div class="container">
       <br><br>
       @if(Auth::check())
-      Bienvenido, {{ Auth::user()->name }}
-     @endif
+      Bienvenido/a, {{ Auth::user()->name }}
+      @else
+      
+      @endif
+     
+
 
         @yield('contenido')  <!-- CONTENIDO-->
 

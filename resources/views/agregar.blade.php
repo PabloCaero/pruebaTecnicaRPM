@@ -26,8 +26,8 @@
 
                 <label for="">Estado</label>
                 <select name="estado" class="form-select" required>
-                  <option value="activo">Activo</option>
-                  <option value="inactivo">Inactivo</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
                 </select>
 
                 <label for="">Foto</label>

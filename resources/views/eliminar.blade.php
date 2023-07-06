@@ -25,7 +25,7 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Email</th>
-                        <th>Password</th>
+                        <th hidden>Password</th>
                         <th>Estado</th>
                         <th>Foto</th>
                     </tr>
@@ -36,7 +36,7 @@
                         <td>{{ $usuarios->nombre }}</td>
                         <td>{{ $usuarios->apellido }}</td>
                         <td>{{ $usuarios->email }}</td>
-                        <td>{{ $usuarios->password }}</td>
+                        <td hidden>{{ $usuarios->password }}</td>
                         <td>{{ $usuarios->estado }}</td>
                         <td>{{ $usuarios->foto }}</td>
                     </tr>
