@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Usuarios;
+use App\Models\Auditoria;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -32,5 +33,13 @@ class DatabaseSeeder extends Seeder
          $usuario->estado = 'Activo';
          $usuario->foto = 'imagen.jpg';
          $usuario->save();
+
+         /****LOGICA PARA AUDITORIAS****/
+         $auditoria = new Auditoria();
+         $auditoria->fecha_hora = now();
+         $auditoria->usuario_id = 1;
+         $auditoria->accion = 'Generación automática de Administrador';
+         $auditoria->nombre_usuario = 'Administrador, Administrador';   
+         $auditoria->save();
     }
 }
