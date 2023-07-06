@@ -8,6 +8,7 @@ use App\Models\Auditoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsuariosController extends Controller
 {
@@ -38,12 +39,13 @@ class UsuariosController extends Controller
         $email = $request->post('email');
     
         // PARA VALIDAR Y GUARDAR RUTA DE FOTO
-        $ruta = ''; 
+        $ruta = '';
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
-            $ruta = $foto->store('fotos', 'public'); 
+            $nombreArchivo = $request->input('foto') . '_' . time() . '.' . $foto->getClientOriginalExtension();
+            $ruta = $foto->storeAs('public/fotos', $nombreArchivo);
         }
-    
+        
         //PARA AGREGAR A LA TABLA USUARIOS
         $verificacion = Usuarios::where('email', $email)->first();
     
@@ -57,10 +59,10 @@ class UsuariosController extends Controller
         $usuarios->email = $email;
         $usuarios->password = bcrypt($request->post('password')); //LO GUARDA EN FORMA CIFRADA
         $usuarios->estado = $request->post('estado');
-        $usuarios->foto = $ruta ? 'fotos/' . $ruta : null;
+        $usuarios->foto = $ruta ? Storage::url($ruta) : null;
     
         $usuarios->save();
-        
+    
         //PARA AGREGAR A LA TABLA USERS
         $user = new User();
         $user->name = $request->input('nombre');
@@ -75,13 +77,14 @@ class UsuariosController extends Controller
         $auditoria = new Auditoria();
         $auditoria->fecha_hora = now();
         $auditoria->usuario_id = Auth::id();
-        $auditoria->accion = "Agregó a un usuario";
+        $auditoria->accion = "Agregó un usuario";
         $usuarioResponsable = Usuarios::find(Auth::id());
-        $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
+        $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;
         $auditoria->save();
     
         return redirect()->route("usuarios.index")->with("success", "Agregado con éxito!");
     }
+    
    
     public function show($id)
     {
@@ -99,85 +102,61 @@ class UsuariosController extends Controller
     }
 
    
-    public function update(Request $request, $id)
-    {
-          // PARA VALIDAR Y GUARDAR RUTA DE FOTO
-          $ruta = ''; 
-          if ($request->hasFile('foto')) {
-              $foto = $request->file('foto');
-              $ruta = $foto->store('fotos', 'public');
-          }
-        
-        $usuarios = new  Usuarios();
-        
-        //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
-        $usuarios = Usuarios::find($id);
-        
-
-         $email = $request->post('email');
-         $verificacion = Usuarios::where('email', $email)->first();
-         $verificacionUsuario = Usuarios::find($id);
-
-          //PARA TOMAR DATOS DEL FORMULARIO
-
-        $usuarios->nombre = $request->post('nombre');
-        $usuarios->apellido = $request->post('apellido');
-        $usuarios->email = $request->post('email');
-        $usuarios->password = bcrypt($request->post('password'));
-        $usuarios->estado = $request->post('estado');
-        $usuarios->foto = $ruta ? 'fotos/' . $ruta : null;  
-        
-        //PARA MODIFICAR A LA TABLA USERS
-       $user = new User();
-       $user = User::find($id);
-       $user->name = $request->post('nombre');
-       $user->email = $request->post('email');
-       $user->password = bcrypt($request->post('password'));
-
-       
-
-       //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
-
-         //METODO PARA GUARDAR
-         if ($verificacion == $verificacionUsuario) {
-            $usuarios->update();
-            $user->update();
-
-             /****LOGICA PARA AUDITORIAS****/
-             $auditoria = new Auditoria();
-             $auditoria->fecha_hora = now();
-             $auditoria->usuario_id = Auth::id();
-             $auditoria->accion = "Modificó un usuario";
-             $usuarioResponsable = Usuarios::find(Auth::id());
-             $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
-             $auditoria->save();
-
-
-
-            return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito, no se modificó el email.");
-        }
-
-         if ($verificacion !== null) {
-            //PARA RETORNAR
-         return redirect()->route("usuarios.index")->with("success", "No se pudo modificar, el mail ". $email . " esta ligado a otro usuario");
-         }    
-
-         $usuarios->update();
-         $user->update();
-
-           /****LOGICA PARA AUDITORIAS****/
-           $auditoria = new Auditoria();
-           $auditoria->fecha_hora = now();
-           $auditoria->usuario_id = Auth::id();
-           $auditoria->accion = "Modificó un usuario";
-           $usuarioResponsable = Usuarios::find(Auth::id());
-           $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
-           $auditoria->save();
-
-         return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito.");
-
-         
+   public function update(Request $request, $id)
+{
+    // PARA VALIDAR Y GUARDAR RUTA DE FOTO
+    $ruta = '';
+    if ($request->hasFile('foto')) {
+        $foto = $request->file('foto');
+        $nombreArchivo = $request->input('foto') . '_' . time() . '.' . $foto->getClientOriginalExtension();
+        $ruta = $foto->storeAs('public/fotos', $nombreArchivo);
     }
+
+    $usuarios = Usuarios::find($id);
+
+    if ($usuarios === null) {
+        return redirect()->route("usuarios.index")->with("success", "No se encontró el usuario");
+    }
+
+    //CONSULTA PARA VALIDAR QUE NO SE REINGRESE UN MAIL EXISTENTE
+    $verificacion = Usuarios::where('email', $request->post('email'))->where('id', '!=',$id)->first();
+
+    if ($verificacion !== null) {
+        return redirect()->route("usuarios.index")->with("success", "No se pudo modificar, el correo electrónico ya está registrado en otro usuario");
+    }
+
+    //PARA TOMAR DATOS DEL FORMULARIO
+    $usuarios->nombre = $request->post('nombre');
+    $usuarios->apellido = $request->post('apellido');
+    $usuarios->email = $request->post('email');
+    $usuarios->password = bcrypt($request->post('password'));
+    $usuarios->estado = $request->post('estado');
+    $usuarios->foto = $ruta ? Storage::url($ruta) : null;
+
+    $usuarios->save();
+
+    //PARA MODIFICAR A LA TABLA USERS
+    $user = User::find($id);
+    if ($user !== null) {
+        $user->name = $request->post('nombre');
+        $user->email = $request->post('email');
+        $user->password = bcrypt($request->post('password'));
+        $user->save();
+    }
+
+    //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
+
+    /****LOGICA PARA AUDITORIAS****/
+    $auditoria = new Auditoria();
+    $auditoria->fecha_hora = now();
+    $auditoria->usuario_id = Auth::id();
+    $auditoria->accion = "Modificó un usuario";
+    $usuarioResponsable = Usuarios::find(Auth::id());
+    $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;
+    $auditoria->save();
+
+    return redirect()->route("usuarios.index")->with("success", "Usuario modificado con éxito.");
+}
 
     
     public function destroy(Request $request, $id)

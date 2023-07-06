@@ -11,7 +11,7 @@
       
      
       <p class="card-text">
-            <form action="{{route('usuarios.update', $usuarios->id)}}" method= "POST">
+            <form action="{{route('usuarios.update', $usuarios->id)}}" method= "POST" enctype="multipart/form-data">
               @csrf
               @method("PUT") <!--PARA ACTUALIZAR-->
 

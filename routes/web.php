@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 
 
 
+
 /*************RUTAS PARA LOGIN**************/
 
 Route::get('/', [LoginController::class, 'index']) -> name('menu.index');
