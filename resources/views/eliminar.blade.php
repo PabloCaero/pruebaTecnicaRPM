@@ -3,6 +3,8 @@
 @section('tituloPagina', 'Eliminar Usuario')
 
 @section('contenido')
+ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
+
 
     <div class="card">
         <h5 class="card-header">Eliminar Usuario</h5>

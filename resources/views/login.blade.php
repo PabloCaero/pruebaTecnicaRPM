@@ -3,7 +3,7 @@
 @section('tituloPagina', 'Login')
 
 @section('contenido')
-
+<br>
         
 
     <div class="card">

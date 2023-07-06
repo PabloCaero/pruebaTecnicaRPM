@@ -15,11 +15,7 @@
   <body>
     <div class="container">
       <br><br>
-      @if(Auth::check())
-      Bienvenido/a, {{ Auth::user()->name }}
-      @else
-      
-      @endif
+    
      
 
 
