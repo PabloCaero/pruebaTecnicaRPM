@@ -129,7 +129,14 @@ class UsuariosController extends Controller
     $usuarios->nombre = $request->post('nombre');
     $usuarios->apellido = $request->post('apellido');
     $usuarios->email = $request->post('email');
-    $usuarios->password = bcrypt($request->post('password'));
+   //VALIDACIÓN DE CONTRASEÑAS
+    $passwordNuevo = bcrypt($request->post('password'));
+    if($passwordNuevo == $usuarios->password){
+        $usuarios->password = $usuarios->password;
+    }
+    else{
+         $usuarios->password = $passwordNuevo;
+    }
     $usuarios->estado = $request->post('estado');
    
     $usuarios->foto = $ruta ? Storage::url($ruta) : $usuarios->foto;
@@ -142,7 +149,7 @@ class UsuariosController extends Controller
     if ($user !== null) {
         $user->name = $request->post('nombre');
         $user->email = $request->post('email');
-        $user->password = bcrypt($request->post('password'));
+        $user->password = $usuarios->password;
         $user->update();
     }
 
