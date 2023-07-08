@@ -19,25 +19,23 @@
                     </svg>
                 </div>
 
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Email</th>
-                            <th hidden>Password</th>
-                            <th>Estado</th>
-                            <th>Foto</th>
-                        </tr>
+                <table class="table table-sm">
+                    <thead class="table-dark ">
+                     
+                            <th style="text-align: center">Nombre</th>
+                            <th style="text-align: center">Apellido</th>
+                            <th style="text-align: center">Email</th>                
+                            <th style="text-align: center">Estado</th>
+                            <th style="text-align: center">Foto</th>
+                       
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $usuarios->nombre }}</td>
-                            <td>{{ $usuarios->apellido }}</td>
-                            <td>{{ $usuarios->email }}</td>
-                            <td hidden>{{ $usuarios->password }}</td>
-                            <td>{{ $usuarios->estado }}</td>
-                            <td><img src="{{ asset($usuarios->foto) }}" alt="Foto" class="rounded-circle" style="width: 50px; height: 50px;"></td>
+                            <td style="text-align: center">{{ $usuarios->nombre }}</td>
+                            <td style="text-align: center">{{ $usuarios->apellido }}</td>
+                            <td style="text-align: center">{{ $usuarios->email }}</td>
+                            <td style="text-align: center">{{ $usuarios->estado }}</td>
+                            <td style="text-align: center"><img src="{{ asset($usuarios->foto) }}" alt="Foto" class="rounded-circle" style="width: 100px; height: 100px;" ></td>
                         </tr>
                     </tbody>
                 </table>

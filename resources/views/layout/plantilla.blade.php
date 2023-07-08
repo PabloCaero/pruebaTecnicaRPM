@@ -15,12 +15,30 @@
     <title>@yield('tituloPagina')</title> <!-- TITULO DE PÁGINA -->
 
     <style>
+        .estado-activo {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #8cf5a5;
+            /* Verde claro */
+        }
+
+        .estado-inactivo {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #f8868f;
+            /* Rojo claro */
+        }
+
+
+
         nav {
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #c97e7e;
+
             padding: 10px;
         }
 
@@ -44,19 +62,19 @@
             list-style: none;
             display: flex;
             align-items: center;
-           
+
         }
 
         .nav-links li {
             margin-left: 10px;
             margin-top: 1px;
             margin-bottom: -12px;
-           
+
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            /*color: #333;*/
         }
 
         .nav-links a:hover {
@@ -89,46 +107,47 @@
             margin-left: 100px;
             font-size: 14px;
         }
-        
     </style>
 </head>
+
 <body>
-<nav>
-    <div class="logo-container">
-        <br><br>
-        <img class="logo"
-        @php
-            use App\Models\Usuarios;
-            $user = Usuarios::find(Auth::user()->id); 
-        @endphp
-        src="{{ asset($user->foto) }}"
-        alt="Logo">
+    <nav style=" background-color: #c97e7e;">
+        <div class="logo-container">
+            <br><br>
+            <img class="logo"
+                @php
+use App\Models\Usuarios;
+            $user = Usuarios::find(Auth::user()->id); @endphp
+                src="{{ asset($user->foto) }}" alt="Logo">
 
-    </div>
-    <div class="user-info">
-        <strong>ID:</strong> {{ Auth::user()->id }}<br>
-        <strong>Usuario/a:</strong> {{ $user->apellido.', '.$user->nombre }}
-    </div>
-    <ul class="nav-links"style="margin-left: auto;">
-      
-      <li><a href="{{ route('usuarios.index') }}" class="btn btn-info">
-        <span class="fas fa-undo-alt"> </span> Inicio</a>
+        </div>
+        <div class="user-info">
+            <strong>ID:</strong> {{ Auth::user()->id }}<br>
+            <strong>Usuario/a:</strong> {{ $user->apellido . ', ' . $user->nombre }}
+        </div>
+        <ul class="nav-links"style="margin-left: auto;">
 
-        <li><a href="{{ route('usuarios.create') }}" class="btn btn-success">
-          <span class="fas fa-user-plus"> </span>
-          <!--ICONO-->
-          Agregar Nuevo Usuario</a></li>
-        <li><a href="{{ route('auditoria.index') }}" class="btn btn-primary">
-          <span class="fas fa-user-plus"> </span>
-          <!--ICONO-->
-          Auditorias</a></li>
-        <li><a href="{{ route('logout') }}" class="btn btn-danger">
-          <span class="fas fa-user-plus"> </span>
-          <!--ICONO-->
-          Salir</a></li>
-        
-    </ul>
-</nav>
+            <li><a href="{{ route('usuarios.index') }}" class="btn btn-info">
+                    <span class="fas fa-undo-alt"> </span> Inicio</a>
+
+            <li><a href="{{ route('usuarios.create') }}" class="btn btn-success">
+                    <span class="fas fa-user-plus"> </span>
+                    <!--ICONO-->
+                    Agregar Nuevo Usuario
+                </a></li>
+            <li><a href="{{ route('auditoria.index') }}" class="btn btn-primary">
+                    <span class="fas fa-user-plus"> </span>
+                    <!--ICONO-->
+                    Auditorias
+                </a></li>
+            <li><a href="{{ route('logout') }}" class="btn btn-danger">
+                    <span class="fas fa-user-plus"> </span>
+                    <!--ICONO-->
+                    Salir
+                </a></li>
+
+        </ul>
+    </nav>
 
 
 </html>
