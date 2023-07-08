@@ -129,14 +129,12 @@ class UsuariosController extends Controller
     $usuarios->nombre = $request->post('nombre');
     $usuarios->apellido = $request->post('apellido');
     $usuarios->email = $request->post('email');
-   //VALIDACIÓN DE CONTRASEÑAS
-    $passwordNuevo = bcrypt($request->post('password'));
-    if($passwordNuevo == $usuarios->password){
-        $usuarios->password = $usuarios->password;
-    }
-    else{
-         $usuarios->password = $passwordNuevo;
-    }
+    $passwordNuevo = $request->post('password');
+   if (Hash::check($passwordNuevo, $usuarios->password)) {
+       //LA CONTRASEÑA NO SE MODIFICA
+   } else {
+       $usuarios->password = Hash::make($passwordNuevo);
+   }
     $usuarios->estado = $request->post('estado');
    
     $usuarios->foto = $ruta ? Storage::url($ruta) : $usuarios->foto;
