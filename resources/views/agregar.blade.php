@@ -4,7 +4,7 @@
 
 @section('contenido')
 
-ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
+
 
 <div class="card">
     <h5 class="card-header">Agregar Nuevo Usuario</h5>

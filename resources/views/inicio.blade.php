@@ -7,7 +7,7 @@
 @section('contenido')
 
 
-ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
+
 
 
 
@@ -35,28 +35,7 @@ ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
                 </div>
             </div>
 
-            <p>
-                <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
-                    <span class="fas fa-user-plus"> </span>
-                    <!--ICONO-->
-                    Agregar Nuevo Usuario
-
-                </a>
-
-                <a href="{{ route('auditoria.index') }}" class="btn btn-primary">
-                    <span class="fas fa-user-plus"> </span>
-                    <!--ICONO-->
-                    Auditorias
-
-                </a>
-
-                <a href="{{ route('logout') }}" class="btn btn-danger">
-                    <span class="fas fa-user-plus"> </span>
-                    <!--ICONO-->
-                    Salir
-
-                </a>
-            </p>
+            
 
 
             <p class="card-text">

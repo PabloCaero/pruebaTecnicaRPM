@@ -143,7 +143,7 @@ class UsuariosController extends Controller
         $user->name = $request->post('nombre');
         $user->email = $request->post('email');
         $user->password = bcrypt($request->post('password'));
-        $user->save();
+        $user->update();
     }
 
     //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1

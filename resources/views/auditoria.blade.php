@@ -3,7 +3,7 @@
 @section('tituloPagina', 'Auditoría')
 
 @section('contenido')
-ID: {{ Auth::user()->id}} - Usuario: {{ Auth::user()->name }}
+
 
 <!-- TRAIDO DESDE BOOTSTRAP -->
 
