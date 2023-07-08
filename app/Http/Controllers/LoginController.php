@@ -38,6 +38,11 @@ class LoginController extends Controller
        $remember = ($request->has('remember') ? true : false);
 
        if(Auth::attempt($credentials,$remember)){
+
+        $user = Usuarios::find(Auth::id());
+        if($user->estado == "Inactivo"){
+            return redirect()->route('login')->with("success", "Usuario inactivo. Contacte a un administrador");
+        }
            
              /****LOGICA PARA AUDITORIAS****/
              $auditoria = new Auditoria();
@@ -53,7 +58,7 @@ class LoginController extends Controller
 
        }
        else{
-        return redirect(route('login'));
+        return redirect()->route('login')->with("success", "Correo y/o contraseña incorrecta/s");
        }
     }
 
