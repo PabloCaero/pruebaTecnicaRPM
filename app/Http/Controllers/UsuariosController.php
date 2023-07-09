@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UsuariosController extends Controller
 {
+    
     
     public function index()
     {
@@ -36,6 +38,23 @@ class UsuariosController extends Controller
    
     public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|alpha_num|min:16',
+        ], [
+            'password.required' => 'El campo de contraseña es obligatorio.',
+            'password.string' => 'El campo de contraseña debe ser una cadena de texto.',
+            'password.alpha_num' => 'El campo de contraseña solo puede contener caracteres alfanuméricos.',
+            'password.min' => 'El campo de contraseña debe tener al menos 16 caracteres.',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
         $email = $request->post('email');
     
         // PARA VALIDAR Y GUARDAR RUTA DE FOTO
@@ -57,7 +76,7 @@ class UsuariosController extends Controller
         $usuarios->nombre = $request->post('nombre');
         $usuarios->apellido = $request->post('apellido');
         $usuarios->email = $email;
-        $usuarios->password = bcrypt($request->post('password')); //LO GUARDA EN FORMA CIFRADA
+        $usuarios->password = Hash::make($request->post('password')); //LO GUARDA EN FORMA CIFRADA
         $usuarios->estado = $request->post('estado');
         $usuarios->foto = $ruta ? Storage::url($ruta) : 'sinfoto.png';
     
@@ -67,7 +86,7 @@ class UsuariosController extends Controller
         $user = new User();
         $user->name = $request->input('nombre');
         $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
+        $user->password = Hash::make($request->input('password'));
     
         $user->save();
     
@@ -102,8 +121,23 @@ class UsuariosController extends Controller
     }
 
    
-   public function update(Request $request, $id)
+   public function update(Request $request, $id)  
 {
+    $validator = Validator::make($request->all(), [
+        'password' => 'nullable|string|alpha_num|min:16',
+    ], [
+        'password.string' => 'El campo de contraseña debe ser una cadena de texto.',
+        'password.alpha_num' => 'El campo de contraseña solo puede contener caracteres alfanuméricos.',
+        'password.min' => 'El campo de contraseña debe tener al menos 16 caracteres.',
+    ]);
+    
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
+    
+    
     // PARA VALIDAR Y GUARDAR RUTA DE FOTO
     $ruta = '';
     if ($request->hasFile('foto')) {
@@ -129,8 +163,9 @@ class UsuariosController extends Controller
     $usuarios->nombre = $request->post('nombre');
     $usuarios->apellido = $request->post('apellido');
     $usuarios->email = $request->post('email');
+    
     $passwordNuevo = $request->post('password');
-   if (Hash::check($passwordNuevo, $usuarios->password)) {
+   if ($passwordNuevo == "") {
        //LA CONTRASEÑA NO SE MODIFICA
    } else {
        $usuarios->password = Hash::make($passwordNuevo);
@@ -147,7 +182,11 @@ class UsuariosController extends Controller
     if ($user !== null) {
         $user->name = $request->post('nombre');
         $user->email = $request->post('email');
-        $user->password = $usuarios->password;
+        if ($passwordNuevo == "") {
+            //LA CONTRASEÑA NO SE MODIFICA
+        } else {         
+            $user->password = Hash::make($passwordNuevo);
+        }
         $user->update();
     }
 

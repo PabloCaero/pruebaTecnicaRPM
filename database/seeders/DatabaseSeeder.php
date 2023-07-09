@@ -4,6 +4,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Usuarios;
 use App\Models\Auditoria;
+use Illuminate\Support\Facades\Hash;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
          $user = new User();
          $user->name = 'Administrador';
          $user->email = 'administrador@rustoleum.com.ar';
-         $user->password = bcrypt('Z!eVr6ang$_fgGP?');
+         $user->password = Hash::make('Z!eVr6ang$_fgGP?');
          $user->save();
  
          
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
          $usuario->nombre = 'Administrador';
          $usuario->apellido = 'Administrador';
          $usuario->email = 'administrador@rustoleum.com.ar';
-         $usuario->password = bcrypt('Z!eVr6ang$_fgGP?');
+         $usuario->password = Hash::make('Z!eVr6ang$_fgGP?');
          $usuario->estado = 'Activo';
          $usuario->foto = 'logo.png';
          $usuario->save();

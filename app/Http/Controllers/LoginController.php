@@ -32,7 +32,6 @@ class LoginController extends Controller
         $credentials = [
         "email" => $request->email,
         "password" => $request->password,
-        //ACA PODRÍA INDICARSE QUE ESTE ACTIVO
         ];
 
        $remember = ($request->has('remember') ? true : false);

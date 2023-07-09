@@ -28,7 +28,12 @@
                 <input type="email" name="email" class="form-control" required value="{{ $usuarios->email }}">
 
                 <label for="">Password</label>
-                <input type="password" name="password" class="form-control" required value="{{ $usuarios->password }}">
+                <input type="password" placeholder="Si no desea modificar la contraseña, este campo debe permanecer vacío" name="password" value="" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}">
+                @if ($errors->has('password'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password') }}
+                    </div>
+                @endif
 
                 <label for="">Estado (Actual: {{ $usuarios->estado }}) </label>
                 <select name="estado" class="form-select" required ">

@@ -24,7 +24,12 @@
                 <input type="email" name="email" class="form-control" required>          
 
                 <label for="">Password</label>
-                <input type="password" name="password" class="form-control" required>
+                <input type="password" name="password" id="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required>
+                @if ($errors->has('password'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('password') }}
+                    </div>
+                @endif
 
                 <label for="">Estado</label>
                 <select name="estado" class="form-select" required>

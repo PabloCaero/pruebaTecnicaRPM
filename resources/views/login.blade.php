@@ -40,6 +40,11 @@
                                         <label for="">Password</label>
                                         <input type="password" name="password" class="form-control" required>
                                     </div>
+
+                                    <div>
+                                        <input type="checkbox" name="remember" id="remember">
+                                        <label for="remember">Mantener sesión iniciada</label>
+                                    </div>
                                   
 
                                     <div class="text-center">
