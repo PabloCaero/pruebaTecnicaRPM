@@ -18,7 +18,7 @@ class UsuariosController extends Controller
     public function index()
     {
       
-        $datos =  Usuarios::orderBy('id', 'desc')->paginate(3);
+        $datos =  Usuarios::orderBy('id', 'desc')->paginate(10);
 
         return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
     }

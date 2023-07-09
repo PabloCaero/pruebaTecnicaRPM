@@ -167,7 +167,21 @@ use App\Models\Usuarios;
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 
-
+<br>
+<footer>
+    <div class="container">
+      <div class="row">
+        <div class="col text-center">
+            <a href="https://github.com/PabloCaero" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/pabloecaero" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/pabloecaero" target="_blank"><i class="fab fa-instagram"></i></a>
+            <br>
+            <p>© 2023 Pablo Ezequiel Caero <br> RPM Consumer Group - Ejercicio práctico de nivelación</p>
+        </div>
+     
+      </div>
+    </div>
+  </footer>
 </body>
 
 </html>
