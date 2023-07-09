@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nombre_usuario');
             $table->string('accion');
             $table->timestamps();
-            $table->softDeletes();
+            
         });
     }
 

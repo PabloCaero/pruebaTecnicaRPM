@@ -25,6 +25,12 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //AUDITORIA
 Route::get('/auditoria', [AuditoriaController::class, 'index'])->middleware('auth') -> name('auditoria.index');
 
+Route::get('/auditoria/buscar', [AuditoriaController::class, 'buscar'])->name('auditoria.buscar');
+
+
+//BUSCAR USUARIOS
+Route::get('/usuarios/buscar', [UsuariosController::class, 'buscar'])->name('usuarios.buscar');
+
 //ASOCIAMOS EL CONTROL DE LA CLASE INDEX
 Route::get('/inicio', [UsuariosController::class, 'index'])->middleware('auth') -> name('usuarios.index');
 

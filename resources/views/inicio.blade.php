@@ -30,6 +30,18 @@
                 </div>
             </div>
 
+              <!-- PARA BUSCAR -->
+              <form action="{{ route('usuarios.buscar') }}" method="GET" class="form-inline">
+                <div class="input-group">
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Buscar...">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach ($datos as $item)
                     <div class="col">

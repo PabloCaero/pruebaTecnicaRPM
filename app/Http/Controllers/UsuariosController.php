@@ -23,6 +23,21 @@ class UsuariosController extends Controller
         return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
     }
 
+    public function buscar(Request $request)
+    {
+        $searchTerm = $request->input('search');
+    
+        // Realizar la lógica de búsqueda en la tabla de auditorías
+        $datos = Usuarios::where('nombre', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('apellido', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('email', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('estado', 'LIKE', '%' . $searchTerm . '%')
+            ->paginate(10);
+    
+        return view('inicio', compact('datos'));
+    }
+    
+
     public function auditoriasRedirect()
     {
       
