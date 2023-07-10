@@ -18,7 +18,7 @@ class UsuariosController extends Controller
     public function index()
     {
       
-        $datos =  Usuarios::orderBy('id', 'desc')->paginate(10);
+        $datos =  Usuarios::orderBy('id', 'desc')->paginate(6);
 
         return view('inicio', compact('datos')); //ENTRE COMILLAS SIMPLES
     }
@@ -30,9 +30,10 @@ class UsuariosController extends Controller
         // Realizar la lógica de búsqueda en la tabla de auditorías
         $datos = Usuarios::where('nombre', 'LIKE', '%' . $searchTerm . '%')
             ->orWhere('apellido', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('id', 'LIKE', '%' . $searchTerm . '%')
             ->orWhere('email', 'LIKE', '%' . $searchTerm . '%')
             ->orWhere('estado', 'LIKE', '%' . $searchTerm . '%')
-            ->paginate(10);
+            ->paginate(6);
     
         return view('inicio', compact('datos'));
     }
