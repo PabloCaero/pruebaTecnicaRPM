@@ -58,9 +58,9 @@ Cualquier duda escribime a carlos.castro@rustoleum.com.ar
 ## Exitos con el ejercicio!! 💪😎
 
 
-## Notas de Pablo Caero:
+## Notas de Pablo Caero
 
-/*****Comandos a ejecutar en la terminal*****/
+--Comandos a ejecutar en la terminal
 
 $ composer install
 $ php artisan migrate
@@ -68,7 +68,7 @@ $ php artisan db:seed
 $ php artisan storage:link
 $ php artisan serve
 
-/*****Configuración de la base de datos en .env*****/
+--Configuración de la base de datos en .env
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -77,7 +77,7 @@ DB_DATABASE=DB_pruebaTecnicaRPM
 DB_USERNAME=root
 DB_PASSWORD=
 
-/*****Credenciales para inicio de sesión*****/
+--Credenciales para inicio de sesión
 
 Usuario: administrador@rustoleum.com.ar
 Clave: Z!eVr6ang$_fgGP?
