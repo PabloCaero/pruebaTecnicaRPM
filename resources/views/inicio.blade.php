@@ -33,7 +33,7 @@
             <!-- PARA BUSCAR -->
             <form action="{{ route('usuarios.buscar') }}" method="GET" class="form-inline">
                 <div class="input-group">
-                    <input type="text" id="search" name="search" class="form-control" placeholder="Buscar...">
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Sugerencia: Buscar por Apellido, Email, Estado (Activo, Inactivo)...">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i>

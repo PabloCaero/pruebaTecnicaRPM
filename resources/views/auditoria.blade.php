@@ -16,7 +16,7 @@
         <div class="card-body">
             <form action="{{ route('auditoria.buscar') }}" method="GET" class="form-inline">
               <div class="input-group">
-                  <input type="text" id="search" name="search" class="form-control" placeholder="Buscar...">
+                  <input type="text" id="search" name="search" class="form-control" placeholder="Sugerencia: Buscar por Acción (Agregó, Modificó, Eliminó, Inicio, Cierre)...">
                   <div class="input-group-append">
                       <button type="submit" class="btn btn-primary">
                           <i class="fas fa-search"></i>
