@@ -58,13 +58,13 @@
                                 <p class="card-text">
                                     <strong>ID de Usuario: </strong>{{ '#' . $item->id }} <br>
                                     <strong>Correo Electrónico: </strong>{{ $item->email }}<br>
-                                <p class="d-flex justify-content-center">
-                                    <span class="estado-{{ strtolower($item->estado) }} ">
-                                        <strong>{{ $item->estado }}</strong>
-                                    </span>
-                                </p>
                                 </p>
                             </div>
+                            <p class="d-flex justify-content-center">
+                                <span class="estado-{{ strtolower($item->estado) }} ">
+                                    <strong>{{ $item->estado }}</strong>
+                                </span>
+                            </p>
                             <div class="card-footer d-flex justify-content-center">
                                 <form action="{{ route('usuarios.edit', $item->id) }}" method="GET">
                                     <!--ENVIA EL ID-->
