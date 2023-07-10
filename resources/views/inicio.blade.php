@@ -12,7 +12,7 @@
 
 
     <div class="card">
-        <h5 class="card-header d-flex justify-content-center">Usuarios</h5>
+        <h5 class="card-header d-flex justify-content-center" style=" color: #fff; background-color: #212529;">Usuarios</h5>
         <div class="card-body">
 
 
@@ -30,8 +30,8 @@
                 </div>
             </div>
 
-              <!-- PARA BUSCAR -->
-              <form action="{{ route('usuarios.buscar') }}" method="GET" class="form-inline">
+            <!-- PARA BUSCAR -->
+            <form action="{{ route('usuarios.buscar') }}" method="GET" class="form-inline">
                 <div class="input-group">
                     <input type="text" id="search" name="search" class="form-control" placeholder="Buscar...">
                     <div class="input-group-append">
@@ -41,22 +41,24 @@
                     </div>
                 </div>
             </form>
-
+<br>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach ($datos as $item)
                     <div class="col">
                         <div class="card h-100">
                             @if ($item->foto)
-                                <img src="{{ asset($item->foto) }}" alt="Foto" class="card-img-top" style="width: 100%;
+                                <img src="{{ asset($item->foto) }}" alt="Foto" class="card-img-top"
+                                    style="width: 100%;
                                 height: 400px;
                                 object-fit: cover;">
                             @endif
                             <div class="card-body">
-                                <h5 class="card-title d-flex justify-content-center">{{ $item->apellido . ', ' . $item->nombre }}</h5>
+                                <h5 class="card-title d-flex justify-content-center">
+                                    {{ $item->apellido . ', ' . $item->nombre }}</h5>
                                 <p class="card-text">
-                                    <strong>ID de Usuario: </strong>{{'#'.$item -> id}} <br>
+                                    <strong>ID de Usuario: </strong>{{ '#' . $item->id }} <br>
                                     <strong>Correo Electrónico: </strong>{{ $item->email }}<br>
-                                    <p class="d-flex justify-content-center">
+                                <p class="d-flex justify-content-center">
                                     <span class="estado-{{ strtolower($item->estado) }} ">
                                         <strong>{{ $item->estado }}</strong>
                                     </span>
@@ -66,7 +68,7 @@
                             <div class="card-footer d-flex justify-content-center">
                                 <form action="{{ route('usuarios.edit', $item->id) }}" method="GET">
                                     <!--ENVIA EL ID-->
-                                    <button class="btn btn-warning mx-1">
+                                    <button class="btn btn-primary">
                                         <span class="fas fa-user-edit"></span> Modificar
                                     </button>
                                 </form>
@@ -92,14 +94,15 @@
             <!--PAGINACIÓN-->
             <div class="row">
                 <div class="col-sm-12 d-flex justify-content-center">
-              
-                        {{ $datos->links() }}
-                    
+
+                    {{ $datos->links() }}
+
                 </div>
             </div>
         </div>
+    </div>
 
 
 
-
-    @endsection
+<br>
+@endsection

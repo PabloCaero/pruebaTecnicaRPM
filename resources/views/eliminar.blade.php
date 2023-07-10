@@ -5,9 +5,13 @@
 @section('contenido')
 
 
-
+<p>
+    <a href="{{ route('usuarios.index') }}" class="btn btn-dark">
+        <span class="fas fa-undo-alt"></span> Regresar
+    </a>
+</p>
     <div class="card">
-        <h5 class="card-header">Eliminar Usuario</h5>
+        <h5  class="card-header d-flex justify-content-center" style=" color: #fff; background-color: #212529;">Eliminar Usuario</h5>
         <div class="card-body">
             <p class="card-text">
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -46,16 +50,16 @@
             <form action="{{ route('usuarios.destroy', $usuarios->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <!--PARA REGRESAR-->
-                <a href="{{ route('usuarios.index') }}" class="btn btn-info">
-                    <span class="fas fa-undo-alt"></span> Regresar
-                </a>
+                <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-danger">
                     <span class="fas fa-user-times"></span>
                     Eliminar
                 </button>
+                </div>
             </form>
         </div>
     </div>
-
+<br>
+<br>
+<br>
 @endsection

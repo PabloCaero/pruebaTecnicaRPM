@@ -40,6 +40,14 @@ class LoginController extends Controller
 
         $user = Usuarios::find(Auth::id());
         if($user->estado == "Inactivo"){
+              /****LOGICA PARA AUDITORIAS****/
+              $auditoria = new Auditoria();
+              $auditoria->fecha_hora = now();
+              $auditoria->usuario_id = Auth::id();
+              $auditoria->accion = "Intento de Inicio de Sesión con usuario Inactivo";
+              $usuarioResponsable = Usuarios::find(Auth::id());
+              $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
+              $auditoria->save();
             return redirect()->route('login')->with("success", "Usuario inactivo. Contacte a un administrador");
         }
            

@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 
 <head>
@@ -13,22 +12,75 @@
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
     <title>Login</title> <!-- TITULO DE PÁGINA -->
+    
+    <style>
 
+body {
+            background-color: #ffc7c7; /* Gris claro */
+        }
+        footer {
+            background-color: #212529; /* Negro */ 
+            padding: 20px 0;
+            color: #fff; /* Color del texto del footer */
+            text-align: center;
+        }
 
+        footer a {
+            color: #fff; /* Color del texto del enlace del footer */
+        }
+
+        footer a:hover {
+            color: #ccc; /* Color del texto del enlace del footer al pasar el mouse */
+        }
+
+        .user-info {
+            margin-left: 100px;
+            font-size: 14px;
+        }
+        
+        .user-info {
+            margin-left: 100px;
+            font-size: 14px;
+        }
+
+        .container-sm {
+            max-width: 900px;
+        }
+
+        .navbar {
+            background-color: #212529; /* Negro */
+        }
+
+        .navbar-brand {
+            color: #fff; /* Color del texto de la marca en el navbar */
+        }
+
+        .navbar-brand:hover {
+            color: #ccc; /* Color del texto de la marca en el navbar al pasar el mouse */
+        }
+    </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-dark">
+        <div class="container d-flex justify-content-center">
+            <a class="navbar-brand " href="#">
+                <h4>RPM Consumer Group - Ejercicio Práctico de Nivelación</h4>
+            </a>
+        </div>
+    </nav>
+    
     <div class="d-flex align-items-center justify-content-center vh-100">
-        <div class="container">
+        <div class="container container-sm">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="card" >
+                    <div class="card">
                         <div class="card-body">
                             <div class="text-center mb-4">
                                 <img src="logo.png" class="img-fluid rounded-start" style="width: 200px;" alt="logo">
                             </div>
-                            <h5 class="card-header text-center">Login</h5>
-                            <div class="card-body" >
+                            <h5 class="card-header d-flex justify-content-center" style="color: #fff; background-color: #212529;">Login</h5>
+                            <div class="card-body">
                                 <form method="POST" action="{{ route('inicia-sesion') }}">
                                     @csrf
                                     <div class="mb-3">
@@ -63,7 +115,7 @@
 
 
                                     <div class="d-grid gap-2 col-6 mx-auto">
-                                        <button type="submit" class="btn btn-lg btn-primary">Acceder</button>
+                                        <button type="submit" class="btn btn-lg btn-primary"> <span class="fas fa-sign-in-alt"></span> Iniciar Sesión</button>
                                     </div>
                                 </form>
                             </div>
@@ -87,8 +139,7 @@
          
           </div>
         </div>
-      </footer>
-
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -31,14 +31,17 @@
             /* Rojo claro */
         }
 
+        body {
+            background-color: #ffc7c7; /* Gris claro */
+        }
 
 
         nav {
+           
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             padding: 10px;
         }
 
@@ -56,53 +59,58 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
+            border: 5px solid #212529; 
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             align-items: center;
-
         }
 
         .nav-links li {
             margin-left: 10px;
             margin-top: 1px;
             margin-bottom: -12px;
-
         }
 
         .nav-links a {
             text-decoration: none;
-            /*color: #333;*/
+            color: #fff; /* Color del texto del enlace */
         }
 
         .nav-links a:hover {
-            color: #000;
+            color: #ccc; /* Color del texto del enlace al pasar el mouse */
         }
 
-        .nav-links .labels {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
+        .user-info {
+            margin-left: 100px;
+            font-size: 14px;
+            color: #fff; /* Color del texto de la información del usuario */
         }
 
-        .nav-links .labels span {
-            margin-right: 5px;
-            font-weight: bold;
+        footer {
+            background-color: #212529; /* Negro */ 
+            padding: 20px 0;
+            color: #fff; /* Color del texto del footer */
+            text-align: center;
         }
 
-        @media screen and (max-width: 480px) {
-            .logo-container {
-                position: static;
-                width: 60px;
-                height: 60px;
-                margin-right: 10px;
-            }
-
-
+        footer a {
+            color: #fff; /* Color del texto del enlace del footer */
         }
 
+        footer a:hover {
+            color: #ccc; /* Color del texto del enlace del footer al pasar el mouse */
+        }
+
+
+
+        .user-info {
+            margin-left: 100px;
+            font-size: 14px;
+        }
+        
         .user-info {
             margin-left: 100px;
             font-size: 14px;
@@ -111,77 +119,55 @@
 </head>
 
 <body>
-    <nav style=" background-color: #c97e7e;">
+    <nav style=" background-color: #212529; /* Negro */">
         <div class="logo-container">
             <br><br>
             <img class="logo"
                 @php
-use App\Models\Usuarios;
-            $user = Usuarios::find(Auth::user()->id); @endphp
+                    use App\Models\Usuarios;
+                    $user = Usuarios::find(Auth::user()->id);
+                @endphp
                 src="{{ asset($user->foto) }}" alt="Logo">
-
         </div>
         <div class="user-info">
             <strong>ID:</strong> {{ Auth::user()->id }}<br>
             <strong>Usuario/a:</strong> {{ $user->apellido . ', ' . $user->nombre }}
         </div>
-        <ul class="nav-links"style="margin-left: auto;">
-
-            <li><a href="{{ route('usuarios.index') }}" class="btn btn-info">
-                    <span class="fas fa-undo-alt"> </span> Inicio</a>
-
-            <li><a href="{{ route('usuarios.create') }}" class="btn btn-success">
-                    <span class="fas fa-user-plus"> </span>
-                    <!--ICONO-->
-                    Agregar Nuevo Usuario
-                </a></li>
+        <ul class="nav-links">
+            <li><a href="{{ route('usuarios.index') }}" class="btn btn-primary">
+                    <span class="fas fa-home"> </span> Inicio</a></li>
+            <li><a href="{{ route('usuarios.create') }}" class="btn btn-primary">
+                    <span class="fas fa-user-plus"> </span> Agregar Nuevo Usuario</a></li>
             <li><a href="{{ route('auditoria.index') }}" class="btn btn-primary">
-                    <span class="fas fa-user-plus"> </span>
-                    <!--ICONO-->
-                    Auditorias
-                </a></li>
+                    <span class="fas fa-list-ul"> </span> Auditorias</a></li>
             <li><a href="{{ route('logout') }}" class="btn btn-danger">
-                    <span class="fas fa-user-plus"> </span>
-                    <!--ICONO-->
-                    Salir
-                </a></li>
-
+                    <span class="fas fa-sign-out-alt"> </span> Cerrar Sesión</a></li>
         </ul>
     </nav>
 
-
-</html>
-<div class="container">
-    <br><br>
-
-
-
-
-    @yield('contenido')
-    <!-- CONTENIDO-->
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-</script>
-
-<br>
-<footer>
     <div class="container">
-      <div class="row">
-        <div class="col text-center">
-            <a href="https://github.com/PabloCaero" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/pabloecaero" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.instagram.com/pabloecaero" target="_blank"><i class="fab fa-instagram"></i></a>
-            <br>
-            <p>© 2023 Pablo Ezequiel Caero <br> RPM Consumer Group - Ejercicio práctico de nivelación</p>
-        </div>
-     
-      </div>
+        <br><br>
+        @yield('contenido')
+        <!-- CONTENIDO -->
     </div>
-  </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <a href="https://github.com/PabloCaero" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/pabloecaero" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/pabloecaero" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <br>
+                    <p>© 2023 Pablo Ezequiel Caero <br> RPM Consumer Group - Ejercicio práctico de nivelación</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

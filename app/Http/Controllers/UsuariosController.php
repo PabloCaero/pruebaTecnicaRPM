@@ -84,7 +84,7 @@ class UsuariosController extends Controller
         $verificacion = Usuarios::where('email', $email)->first();
     
         if ($verificacion !== null) {
-            return redirect()->route("usuarios.index")->with("success", "No se pudo agregar. El correo electrónico ya está registrado");
+            return redirect()->route("usuarios.index")->with("success", "No se pudo agregar. El correo electrónico ".$email." ya está registrado");
         }
     
         $usuarios = new Usuarios();
@@ -106,12 +106,14 @@ class UsuariosController extends Controller
         $user->save();
     
         //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
+
+        $datosAuditados = Usuarios::where('email', $email)->first();
     
         /****LOGICA PARA AUDITORIAS****/
         $auditoria = new Auditoria();
         $auditoria->fecha_hora = now();
         $auditoria->usuario_id = Auth::id();
-        $auditoria->accion = "Agregó un usuario";
+        $auditoria->accion = "Agregó a usuario ID: #".$datosAuditados->id." - ".$datosAuditados->apellido.", ".$datosAuditados->nombre;
         $usuarioResponsable = Usuarios::find(Auth::id());
         $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;
         $auditoria->save();
@@ -171,7 +173,7 @@ class UsuariosController extends Controller
     $verificacion = Usuarios::where('email', $request->post('email'))->where('id', '!=',$id)->first();
 
     if ($verificacion !== null) {
-        return redirect()->route("usuarios.index")->with("success", "No se pudo modificar, el correo electrónico ya está registrado en otro usuario");
+        return redirect()->route("usuarios.index")->with("success", "No se pudo modificar, el correo electrónico ".$request->post('email')." ya está registrado en otro usuario");
     }
 
     //PARA TOMAR DATOS DEL FORMULARIO
@@ -206,12 +208,13 @@ class UsuariosController extends Controller
     }
 
     //AMBAS TABLAS TIENEN UNA RELACIÓN 1 A 1
+    $datosAuditados = Usuarios::find($id);
 
     /****LOGICA PARA AUDITORIAS****/
     $auditoria = new Auditoria();
     $auditoria->fecha_hora = now();
     $auditoria->usuario_id = Auth::id();
-    $auditoria->accion = "Modificó un usuario";
+    $auditoria->accion = "Modificó a usuario ID: #".$datosAuditados->id." - ".$datosAuditados->apellido.", ".$datosAuditados->nombre;
     $usuarioResponsable = Usuarios::find(Auth::id());
     $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;
     $auditoria->save();
@@ -231,20 +234,21 @@ class UsuariosController extends Controller
         $usuarios = Usuarios::find($id);
         $user = User::find($id);
 
+        /****LOGICA PARA AUDITORIAS****/
+        $auditoria = new Auditoria();
+        $auditoria->fecha_hora = now();
+        $auditoria->usuario_id = Auth::id();
+        $auditoria->accion = "Eliminó a usuario ID: #".$id." - ".$usuarios->apellido.", ".$usuarios->nombre;
+        $usuarioResponsable = Usuarios::find(Auth::id());
+        $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
+        $auditoria->save();
+
         //METODO PARA ELIMINAR
         $usuarios->delete();
         $user->delete();
 
-          /****LOGICA PARA AUDITORIAS****/
-          $auditoria = new Auditoria();
-          $auditoria->fecha_hora = now();
-          $auditoria->usuario_id = Auth::id();
-          $auditoria->accion = "Eliminó un usuario";
-          $usuarioResponsable = Usuarios::find(Auth::id());
-          $auditoria->nombre_usuario = $usuarioResponsable->apellido . ', ' . $usuarioResponsable->nombre;   
-          $auditoria->save();
 
         //PARA RETORNAR
-        return redirect()->route("usuarios.index")->with("success", "Eliminado con éxito!");   
+        return redirect()->route("usuarios.index")->with("success", "Eliminado con éxito.");   
     }
 }
